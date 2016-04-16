@@ -1,0 +1,40 @@
+<ListScreen>:
+	name: "menu_principal"
+	FloatLayout:
+		Button:
+			text: 'Adicionar na Lista'
+			font_size: 14
+			size_hint: .2, .1
+			pos_hint: {"x": .2, 'y': .8}
+			on_press: root.add_item(new_folder_input.text)
+		Button:
+			text: 'Remover da Lista'
+			font_size: 14
+			size_hint: .2, .1
+			pos_hint: {"x": .5, 'y': .8}
+
+		Label:
+			text: 'Digite a URL nova'
+			size_hint: .2, .1
+			pos_hint: {"x": .2, 'y': .7}
+		
+		TextInput:
+			id: new_folder_input
+			size_hint: .2, .05
+			pos_hint: {"x": .5, 'y': .7}
+
+		ListView:
+			size_hint: .6,.4
+			pos_hint: {"x": .15, 'y': .2}
+			adapter: root.folders_adapter
+
+
+<ListSelectScreen>:
+	name: "tela_lista"
+	FloatLayout:
+		Button:
+			text: 'Voltar para as listas'
+			font_size: 14
+			size_hint: .2, .1
+			pos_hint: {"x": .2, 'y': .8}
+			on_release: root.manager.current = "Main_Menu"
