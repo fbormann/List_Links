@@ -31,13 +31,20 @@ class ListScreen(Screen):
 
 	def __init__(self, **kwargs):
 		self.load_data()
+		self.store = JsonStore('folders.json')
 		self.data  = []
+
+		#Retrieve items from file to GUI
+		for item in self.store: 
+			self.data.append(item)
+
+		#bind the list to the UI
 		self.folders_adapter = ListAdapter(data = self.data,
 			cls = ListItemButton,
 			selection_mode='single')
 
 
-		self.store = JsonStore('folders.json')
+		
 		super(ListScreen, self).__init__(**kwargs) 
 
 		"""
@@ -70,6 +77,7 @@ ListSelectScreen :
 class ListSelectScreen(Screen):
 	def __init__(self, **kwargs):
 		super(ListSelectScreen, self).__init__(**kwargs)
+
 
 
 sm = ScreenManager()
