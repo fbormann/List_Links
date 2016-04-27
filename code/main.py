@@ -6,18 +6,9 @@ import kivy
 
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.button import Button
-from kivy.uix.label import Label
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
-
-from kivy.storage.jsonstore import JsonStore
-from os.path import join
-
 from kivy.adapters.listadapter import ListAdapter
 from kivy.uix.listview import ListItemButton
+from kivy.storage.jsonstore import JsonStore
 
 from kivy.uix.screenmanager import ScreenManager, Screen
 
@@ -40,22 +31,30 @@ class ListScreen(Screen):
 
 	def __init__(self, **kwargs):
 		self.load_data()
-		self.data  = ["item 1", "item 2"]
+		self.data  = []
 		self.folders_adapter = ListAdapter(data = self.data,
 			cls = ListItemButton,
 			selection_mode='single')
 
 
+		self.store = JsonStore('folders.json')
 		super(ListScreen, self).__init__(**kwargs) 
+
 		"""
 		Tenho de colocar ao final senão o comando não funciona
 		"""
 
+	def add_folder(self, folder):
+		self.data.append(folder) #data is being updated but GUI is not.
+		self.folders_adapter.data = self.data #Update UI
+		
+		self.store[folder] = {}
+
 	def add_item(self, item):
 		self.data.append(item) #data is being updated but GUI is not.
 		self.folders_adapter.data = self.data #Update UI
-		#data_dir = getattr(self, 'data') #get a writable path to save the file
-		#store = JsonStore(join(data_dir, 'folders.json'))
+		
+		self.store[item] = {'link': item}
 
 	def load_data(self):
 		pass
