@@ -12,6 +12,7 @@
 			font_size: 14
 			size_hint: .1, .1
 			pos_hint: {"x": .5, 'y': .8}
+			on_press: root.delete_folder()
 
 		Button:
 			text: 'Editar Lista'
@@ -30,6 +31,7 @@
 			pos_hint: {"x": .5, 'y': .7}
 
 		ListView:
+			id: folder_list
 			size_hint: .6,.4
 			pos_hint: {"x": .15, 'y': .2}
 			adapter: root.folders_adapter
