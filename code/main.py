@@ -41,9 +41,12 @@ class ListScreen(Screen):
 			cls = ListItemButton,
 			selection_mode='single')
 
-
 		
+		self.folders_adapter.bind(on_selection_change=self.selection_changed)
 		super(ListScreen, self).__init__(**kwargs) 
+		#for id_str, widget in self.ids.iteritems():
+			#print(id_str)
+
 
 		"""
 		Tenho de colocar ao final senão o comando não funciona
@@ -63,6 +66,21 @@ class ListScreen(Screen):
 
 	def load_data(self):
 		pass
+
+		"""
+		Remove the selected folder on GUI
+		"""
+	def delete_folder(self):
+		folder_name = self.folders_adapter.selection[0].text
+		self.store.delete(folder_name)
+		self.data.remove(folder_name)
+		self.folders_adapter.data = self.data #UpdateUI"""
+
+	def selection_changed(self, *args):
+		"""print(' args when selection changes gets you the adapter', args)
+		self.selected_item = args[0].selection[0].text
+		print(self.selected_item)"""
+
 
 
 """
