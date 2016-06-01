@@ -2,16 +2,22 @@
 	name: "menu_principal"
 	FloatLayout:
 		Button:
-			text: 'Adicionar na Lista'
+			text: 'Adicionar Lista'
 			font_size: 14
-			size_hint: .2, .1
+			size_hint: .1, .1
 			pos_hint: {"x": .2, 'y': .8}
 			on_press: root.add_folder(new_folder_input.text)
 		Button:
-			text: 'Remover da Lista'
+			text: 'Remover Lista'
 			font_size: 14
-			size_hint: .2, .1
+			size_hint: .1, .1
 			pos_hint: {"x": .5, 'y': .8}
+
+		Button:
+			text: 'Editar Lista'
+			font_size: 14
+			size_hint: .05, .1
+			pos_hint: {"x": .7, 'y': .8}
 
 		Label:
 			text: 'Digite a URL nova'

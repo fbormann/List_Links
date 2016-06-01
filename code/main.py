@@ -17,7 +17,6 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 
 """
 Screen available to add,remove and update a link to a list.
-
 (Future Feature: maybe add a parameter field to it?)
 
 fields:
@@ -28,13 +27,12 @@ Builder.load_file("../design/main.kv")
 
 
 class ListScreen(Screen):
-
 	def __init__(self, **kwargs):
 		self.load_data()
 		self.store = JsonStore('folders.json')
 		self.data  = []
 
-		#Retrieve items from file to GUI
+		#Retrieve items from
 		for item in self.store: 
 			self.data.append(item)
 
