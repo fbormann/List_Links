@@ -15,10 +15,13 @@
 			on_press: root.delete_folder()
 
 		Button:
+			id: edit_list
 			text: 'Editar Lista'
 			font_size: 14
-			size_hint: .05, .1
+			size_hint: .1, .1
 			pos_hint: {"x": .7, 'y': .8}
+			on_press: 
+				root.move_to_list()
 
 		Label:
 			text: 'Digite a URL nova'
@@ -46,3 +49,24 @@
 			size_hint: .2, .1
 			pos_hint: {"x": .2, 'y': .8}
 			on_release: root.manager.current = "Main_Menu"
+		Button:
+			text: 'Adicionar Link'
+			font_size: 14
+			size_hint: .2, .1
+			pos_hint: {"x": .5, 'y': .8}
+			on_press: root.add_link(new_folder_input.text)
+		Button:
+			text: 'Remover Link'
+			font_size: 14
+			size_hint: .2, .1
+			pos_hint: {"x": .7, 'y': .8}
+			on_press: root.delete_link()
+		TextInput:
+			id: new_link_input
+			size_hint: .2, .05
+			pos_hint: {"x": .5, 'y': .7}
+		Label:
+			id: folder_name
+			size_hint: .2, .1
+			pos_hint: {"x": .2, 'y': .7}
+			text: ""

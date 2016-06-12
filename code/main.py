@@ -28,11 +28,11 @@ Builder.load_file("../design/main.kv")
 
 class ListScreen(Screen):
 	def __init__(self, **kwargs):
-		self.load_data()
+		
 		self.store = JsonStore('folders.json')
 		self.data  = []
 
-		#Retrieve items from
+		#Retrieve items from the database
 		for item in self.store: 
 			self.data.append(item)
 
@@ -44,18 +44,37 @@ class ListScreen(Screen):
 		
 		self.folders_adapter.bind(on_selection_change=self.selection_changed)
 		super(ListScreen, self).__init__(**kwargs) 
-		#for id_str, widget in self.ids.iteritems():
-			#print(id_str)
+		
 
 
 		"""
 		Tenho de colocar ao final senão o comando não funciona
 		"""
+	def move_to_list(self):
+		if len(self.folders_adapter.selection) == 0: #So if no folder is selected, there is not way it will be used
+			 print("Nenhum folder selecionado")
+		else:
+			"""
+				Change screens on the data and pass the folder name as
+				a parameter so that the screen only bring links to that
+				Folder
+			"""
+			sm.get_screen("Lista_Screen").ids['folder_name'].text = self.folders_adapter.selection[0].text
+			sm.direction = 'left'
+			sm.current = "Lista_Screen"
+
+
 
 	def add_folder(self, folder):
 		self.data.append(folder) #data is being updated but GUI is not.
-		self.folders_adapter.data = self.data #Update UI
 		
+		self.update_UI_list()
+		self.initialize_folder_database(folder)
+
+	def update_UI_list(self):
+		self.folders_adapter.data = self.data 
+
+	def initialize_folder_database(self, folder):
 		self.store[folder] = {}
 
 	def add_item(self, item):
@@ -64,16 +83,13 @@ class ListScreen(Screen):
 		
 		self.store[item] = {'link': item}
 
-	def load_data(self):
-		pass
-
 		"""
 		Remove the selected folder on GUI
 		"""
 	def delete_folder(self):
 		folder_name = self.folders_adapter.selection[0].text
-		self.store.delete(folder_name)
-		self.data.remove(folder_name)
+		self.store.delete(folder_name) #THE JSON IS UPDATED
+		self.data.remove(folder_name) #THE BINDING IS UPDATED
 		self.folders_adapter.data = self.data #UpdateUI"""
 
 	def selection_changed(self, *args):
@@ -92,6 +108,12 @@ ListSelectScreen :
 
 class ListSelectScreen(Screen):
 	def __init__(self, **kwargs):
+		
+		self.store = JsonStore('folders.json')
+		self.data  = []
+
+		
+
 		super(ListSelectScreen, self).__init__(**kwargs)
 
 
